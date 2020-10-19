@@ -13,4 +13,4 @@ title:  Team
 ***UCI Net ID***: ericz3
 
 ## USER 3
-***UCI Net ID***: ucinetid3
+***UCI Net ID***: hsuth
