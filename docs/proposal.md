@@ -16,7 +16,7 @@ Because we plan on having a continous action space for our agent, we decided to 
 
 ## Evaluation Plan
 
-A factor that will be evaluated is the agent's ability to collect all of the resources requested of the input. For every item collected, the agent would receive a reward for making progress in the task. The agent would also be evaluated on how well it manages to avoid potential obstacles in the form of punishment in the event that it runs into one.
+A factor that will be evaluated is the agent's ability to collect all of the resources requested of the input. For every item collected, the agent would receive a reward for making progress in the task. The agent would also be evaluated on how well it manages to avoid potential obstacles in the form of punishment in the event that it runs into one. We could also help our agent optimize better by rewarding the agent for taking less actions.
 
 ---
 
