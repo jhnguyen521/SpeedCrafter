@@ -6,11 +6,11 @@ title:  Team
 # {{ page.title }}
 
 
-## USER 1
+### Justin Nguyen
 ***UCI Net ID***: justihn8
 
-## USER 2
+### Eric Zhang
 ***UCI Net ID***: ericz3
 
-## USER 3
+### Ting Hsu
 ***UCI Net ID***: hsuth
