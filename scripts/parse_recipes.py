@@ -27,12 +27,13 @@ class RecipeParser:
             'count': 1,
             'ingredients': {}
         }
+        output_item = self.strip_prefix(result_dict['item'])
 
         for key, key_data in input_dict['key'].items():
             if isinstance(key_data, dict):
-                item = key_data['item'].split(':')[1]
+                item = self.strip_prefix(key_data['item'])
             elif isinstance(key_data, list):
-                item = key_data[0]['item'].split(':')[1]
+                item = self.strip_prefix(key_data[0]['item'])
 
             temp_dict[key] = {
                 'item': item,
@@ -59,7 +60,7 @@ class RecipeParser:
             if 'data' in key_data:
                 output_dict['ingredients'][key_data['item']]['data'] = key_data['data']
 
-        self.data_dict[result_dict['item']] = output_dict
+        self.data_dict[output_item] = output_dict
 
     def add_crafting_shapeless(self, input_dict: dict):
         result_dict = input_dict['result']
@@ -67,6 +68,7 @@ class RecipeParser:
             'count': 1,
             'ingredients': {}
         }
+        output_item = self.strip_prefix(result_dict['item'])
 
         if 'data' in result_dict:
             output_dict['data'] = result_dict['data']
@@ -75,9 +77,9 @@ class RecipeParser:
 
         for ingredient_dict in input_dict['ingredients']:
             if isinstance(ingredient_dict, dict):
-                item = ingredient_dict['item'].split(':')[1]
+                item = self.strip_prefix(ingredient_dict['item'])
             elif isinstance(ingredient_dict, list):
-                item = ingredient_dict[0]['item'].split(':')[1]
+                item = self.strip_prefix(ingredient_dict[0]['item'])
 
             if item in output_dict['ingredients']:
                 output_dict['ingredients'][item]['count'] += 1
@@ -88,7 +90,7 @@ class RecipeParser:
                 if 'data' in ingredient_dict:
                     output_dict['ingredients'][item]['data'] = ingredient_dict['data']
 
-        self.data_dict[result_dict['item']] = output_dict
+        self.data_dict[output_item] = output_dict
 
     def parse_dir(self):
         for file in os.scandir(self.recipe_dir):
@@ -106,6 +108,11 @@ class RecipeParser:
         """Output self.data_dict into Python file for retrieval"""
         with open(self.output_filename, 'w') as openfile:
             json.dump(self.data_dict, openfile, indent=2)
+
+    @staticmethod
+    def strip_prefix(input_str):
+        """Strip minecraft: prefix from item names"""
+        return input_str.split(':')[1]
 
 
 def main():
