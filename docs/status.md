@@ -7,6 +7,10 @@ title: Status
 For our project, we want to give our agent a recipe or list of resources which the agent must find and collect by exploring the world around it. The agent would be placed in a normally-generated world with a given world seed. The agent would be given limited information about its immediate surroundings in the form of a three-dimensional grid and would have to explore to find additional resources. It would also need to be aware of and react to potential hazards in the area. Our project has applications in problems that involve searching for objects in unfamiliar areas.
 
 ## Approach
+<!--
+Reward the agent for encountering resource in observation space, touching the block, and collecting the block. Reward shaping will be an extremely important part in training our neural network as we must reward the agent as it gradually gets closer to desired objectives.
+-->
+
 
 ## Evaluation
 <!--
