@@ -24,20 +24,20 @@ H() = entropy measure, α = how important the entropy is (weight of entropy, tem
 
 
 SAC uses three main network:
-<img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/3functions.png' title='threefunctions' />
+<img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/3functions.png' title='threefunctions' />
 
  
 Soft state value function aims to minimize the mean squared error 
-<img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/soft_state.png' title='soft state Q' />
+<img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/soft_state.png' title='soft state Q' />
 
 
 Soft Q function aims to minimize the soft Bellman residual
-<img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/soft_q.png' title='soft state Q' />
+<img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/soft_q.png' title='soft state Q' />
 
  
 Pseudo algorithm
 
-<img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/algorithm.png' title='algorithm' />
+<img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/algorithm.png' title='algorithm' />
 
 
 
