@@ -16,7 +16,7 @@ Reward the agent for encountering resource in observation space, touching the bl
 We will use entropy reinforcement maximum learning: soft actor critic (SAC), which is an off-policy, independent of the agent’s action algorithm. The agent will try to maximize the expected award as well as entropy. Since the agent tries to maximize the entropy, the agent will take more random actions and therefore is encouraged to explore more possibilities. The algorithm prefers the most random action that receives the highest reward.
 
 Reward functions:
-<img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/reward_f.png' title='Reward function' alt='' />
+<img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/reward_f.png' title='Reward function' />
                                                                                                                   
 
  
@@ -24,20 +24,20 @@ H() = entropy measure, α = how important the entropy is (weight of entropy, tem
 
 
 SAC uses three main network:
-<img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/3functions.png' title='threefunctions' alt='' />
+<img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/3functions.png' title='threefunctions' />
 
  
 Soft state value function aims to minimize the mean squared error 
-<img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/soft_state.png' title='soft state Q' alt='' />
+<img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/soft_state.png' title='soft state Q' />
 
 
 Soft Q function aims to minimize the soft Bellman residual
-<img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/soft_q.png' title='soft state Q' alt='' />
+<img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/soft_q.png' title='soft state Q' />
 
  
 Pseudo algorithm
 
-<img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/algorithm.png' title='algorithm' alt='' />
+<img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/algorithm.png' title='algorithm' />
 
 
 
