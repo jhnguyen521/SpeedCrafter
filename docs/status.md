@@ -39,7 +39,7 @@ Pseudo algorithm
 
 ### Solving the Problem
 
-To solve our problem, we will combine RL along with other algorithms to help the agent complete the task. We will be using RL primarily for the exploring and searching aspect of the AI and creating algorithms for the AI to actually perform the crafting upon collecting all items due to crafting recipes being pre-defined.
+To solve our problem, we will combine RL along with other algorithms to help the agent complete the task. We will be using RL primarily for the exploring and searching aspect of the AI and creating algorithms for the AI to actually perform the crafting upon collecting all items due to crafting recipes being pre-defined. Regarding the environment, we will be alternating between a few pre-defined world seeds in order to help train the agent to be able to generalize in different environments.
 
 
 ## Evaluation
