@@ -16,7 +16,7 @@ Reward the agent for encountering resource in observation space, touching the bl
 We will use entropy reinforcement maximum learning: soft actor critic (SAC), which is an off-policy, independent of the agent’s action algorithm. The agent will try to maximize the expected award as well as entropy. Since the agent tries to maximize the entropy, the agent will take more random actions and therefore is encouraged to explore more possibilities. The algorithm prefers the most random action that receives the highest reward.
 
 Reward functions:
-<img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/reward_f.png' title='Reward function' />
+<img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/reward_f.png' title='Reward function' />
                                                                                                                   
 
  
