@@ -11,6 +11,29 @@ For our project, we want to give our agent a recipe or list of resources which t
 Reward the agent for encountering resource in observation space, touching the block, and collecting the block. Reward shaping will be an extremely important part in training our neural network as we must reward the agent as it gradually gets closer to desired objectives.
 -->
 
+Approach:
+
+We will use entropy reinforcement maximum learning: soft actor critic (SAC), which is an off-policy, independent of the agent’s action algorithm. The agent will try to maximize the expected award as well as entropy. Since the agent tries to maximize the entropy, the agent will take more random actions and therefore is encouraged to explore more possibilities. The algorithm prefers the most random action that receives the highest reward.
+
+Reward functions will look 
+ 
+H() = entropy measure, α = how important the entropy is (weight of entropy, temperature parameter) 
+
+
+SAC uses three main network:
+
+ 
+Soft state value function aims to minimize the mean squared error 
+
+Soft Q function aims to minimize the soft Bellman residual
+
+ 
+ 
+Pseudo algorithm
+ 
+We will use external library for the algorithm: https://github.com/haarnoja/sac
+
+
 
 ## Evaluation
 <!--
