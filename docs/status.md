@@ -16,6 +16,8 @@ The agent will also be evaluated on its ability to collect resources and fulfill
 -->
 ## Remaining Goals and Challenges
 
+Regarding remaining goals and challenges, we are still deciding what kind of neural network may be best for our application and train the agent using it to gather resources. We also need to implement algorithms to actually use the collected resources and craft the requested item.
+
 ## Resources Used
 Resources that were helpful included the following:
 * Malmo documentation
