@@ -39,8 +39,6 @@ Pseudo algorithm
 
 <img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/algorithm.png' title='algorithm' width='' alt='' />
 
- 
-We will use external library for the algorithm: https://github.com/haarnoja/sac
 
 
 
@@ -57,3 +55,6 @@ Regarding remaining goals and challenges, we are still deciding what kind of neu
 ## Resources Used
 Resources that were helpful included the following:
 * Malmo documentation
+External Libraries:
+https://github.com/haarnoja/sac
+
