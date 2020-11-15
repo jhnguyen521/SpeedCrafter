@@ -16,15 +16,19 @@ The goal of our project is create an agent that can explore a Minecraft world an
 - [Final report](final.html)
 
 ## Images
+<div style="text-align:center">
 <figure>
   <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/arena.png' width="550" height="300"/>
   <figcaption>The agent will gather resources in a randomly generated arena such as this one.</figcaption>
 </figure>
+</div>
+<br />
 
-
+<div style="text-align:center">
 <figure>
   <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/view.png' width="550" height="300"/>
   <figcaption>Agent's point of view.</figcaption>
 </figure>
+</div>
 
 
