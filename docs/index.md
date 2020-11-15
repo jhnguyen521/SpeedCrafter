@@ -13,19 +13,18 @@ The goal of our project is create an agent that can explore a Minecraft world an
 - [GitHub repository](https://github.com/jhnguyen521/SpeedCrafter)
 - [Proposal](proposal.html)
 - [Status report](status.html)
-<!--
-- [Final](final.html)
--->
+- [Final report](final.html)
 
 ## Images
 <figure>
   <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/arena.png' width="550" height="300"/>
-  <figcaption>The agent will gather resources in a randomly generated arena such as this one</figcaption>
+  <figcaption>The agent will gather resources in a randomly generated arena such as this one.</figcaption>
 </figure>
 
+
 <figure>
-  <img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/view.png' width="550" height="300"/>
-  <figcaption>Agent's point of view</figcaption>
+  <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/view.png' width="550" height="300"/>
+  <figcaption>Agent's point of view.</figcaption>
 </figure>
 
 
