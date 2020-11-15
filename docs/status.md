@@ -3,7 +3,7 @@ layout: default
 title: Status
 ---
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/EtwqYYouHnY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="margin:auto; display:block;"></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GS2tfW3F1Hc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="margin:auto; display:block;"></iframe>
 
 
 ## Summary
