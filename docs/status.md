@@ -56,6 +56,7 @@ Regarding remaining goals and challenges, we are still deciding what kind of neu
 ## Resources Used
 Resources that were helpful included the following:
 * Malmo documentation
-External Libraries:
+
+* External Libraries:
 https://github.com/haarnoja/sac
 
