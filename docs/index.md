@@ -5,20 +5,27 @@ title: Home
 
 <div style="text-align:center"> <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/homepage.jpg' width="750" height="500"/></div>
 
-### Steve is a Speedy Crafter
+## Overview
 
-<p>  we want to give our agent a recipe or list of resources which the agent must find and collect by exploring the world around it. The agent would be placed in a normally-generated world with a given world seed. The agent would be given limited information about its immediate surroundings in the form of a three-dimensional grid and would have to explore to find additional resources. It would also need to be aware of and react to potential hazards in the area. Our project has applications in problems that involve searching for objects in unfamiliar areas. </p>
+The goal of our project is create an agent that can explore a Minecraft world and collect resources to craft certain items. The agent should be able to do this in an efficient manner while avoiding environmental hazards, such as lava or falling from heights. We will use the *soft-actor critic* algorithm to implement our agent.
 
-<strong style="text-align:center;"> Steve's point of view </strong>
-
-<div style="text-align:center"> <img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/view.png' width="550" height="300"/></div>
-
-<strong style="text-align:center;"> Steve will be located in an arena which is randomly generated </strong>
-
-<div style="text-align:center"> <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/arena.png' width="550" height="300"/></div>
-
-Source code: https://github.com/jhnguyen521/SpeedCrafter
-
+## Project Links
+- [GitHub repository](https://github.com/jhnguyen521/SpeedCrafter)
 - [Proposal](proposal.html)
-- [Status](status.html)
+- [Status report](status.html)
+<!--
 - [Final](final.html)
+-->
+
+## Images
+<figure>
+  <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/arena.png' width="550" height="300"/>
+  <figcaption>The agent will gather resources in a randomly generated arena such as this one</figcaption>
+</figure>
+
+<figure>
+  <img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/view.png' width="550" height="300"/>
+  <figcaption>Agent's point of view</figcaption>
+</figure>
+
+
