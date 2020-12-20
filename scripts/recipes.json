@@ -84,16 +84,6 @@
       }
     }
   },
-  "stone": {
-    "count": 4,
-    "ingredients": {
-      "stone": {
-        "count": 4,
-        "data": 1
-      }
-    },
-    "data": 2
-  },
   "anvil": {
     "count": 1,
     "ingredients": {
