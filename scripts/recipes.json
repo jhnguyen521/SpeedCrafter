@@ -84,16 +84,6 @@
       }
     }
   },
-  "stone": {
-    "count": 4,
-    "ingredients": {
-      "stone": {
-        "count": 4,
-        "data": 1
-      }
-    },
-    "data": 2
-  },
   "anvil": {
     "count": 1,
     "ingredients": {
@@ -557,15 +547,6 @@
       }
     }
   },
-  "coal": {
-    "count": 9,
-    "ingredients": {
-      "coal_block": {
-        "count": 1
-      }
-    },
-    "data": 0
-  },
   "coal_block": {
     "count": 1,
     "ingredients": {
@@ -731,14 +712,6 @@
       }
     }
   },
-  "diamond": {
-    "count": 9,
-    "ingredients": {
-      "diamond_block": {
-        "count": 1
-      }
-    }
-  },
   "diamond_axe": {
     "count": 1,
     "ingredients": {
@@ -856,14 +829,6 @@
       },
       "cobblestone": {
         "count": 7
-      }
-    }
-  },
-  "emerald": {
-    "count": 9,
-    "ingredients": {
-      "emerald_block": {
-        "count": 1
       }
     }
   },
@@ -1201,14 +1166,6 @@
       }
     }
   },
-  "gold_ingot": {
-    "count": 1,
-    "ingredients": {
-      "gold_nugget": {
-        "count": 9
-      }
-    }
-  },
   "gold_nugget": {
     "count": 9,
     "ingredients": {
@@ -1322,14 +1279,6 @@
       },
       "iron_ingot": {
         "count": 2
-      }
-    }
-  },
-  "iron_ingot": {
-    "count": 1,
-    "ingredients": {
-      "iron_nugget": {
-        "count": 9
       }
     }
   },
@@ -1848,14 +1797,6 @@
       }
     }
   },
-  "redstone": {
-    "count": 9,
-    "ingredients": {
-      "redstone_block": {
-        "count": 1
-      }
-    }
-  },
   "redstone_block": {
     "count": 1,
     "ingredients": {
@@ -2261,14 +2202,6 @@
         "count": 1
       },
       "iron_ingot": {
-        "count": 1
-      }
-    }
-  },
-  "wheat": {
-    "count": 9,
-    "ingredients": {
-      "hay_block": {
         "count": 1
       }
     }
