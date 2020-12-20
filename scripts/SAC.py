@@ -144,6 +144,7 @@ class SpeedCrafter(gym.Env):
             done = True
             if enough_resources:
                 crafted_item = True
+                self.agent_host.sendCommand('chat /kill')
             time.sleep(0.5)
 
             # Gt Observation
@@ -216,6 +217,7 @@ class SpeedCrafter(gym.Env):
            </AgentStart>
                 <AgentHandlers>
                     <DiscreteMovementCommands/>
+                    <ChatCommands/>
                     <SimpleCraftCommands/>
                     <ObservationFromFullStats/>
                     <ObservationFromHotBar/>
