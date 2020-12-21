@@ -38,21 +38,31 @@ Once we have these coordinates, we can calculate the distance between the agent 
 The mission finishes either when the agent hits 200 steps or the agent collects enough resources to craft the item.
 
 ## Evaluation
+The agent is evaluated in its ability in finding resources as well as how efficient it is at doing so. A small penalty of -1 is incurred every time a command is sent to the agent, as well as when it collects dirt (a common item that's not used in any recipes). Collecting a required resource has a reward of 100, and collecting all of the resources adds an additional reward of 1000. This is intended to reward the agent for completing recipes and encourage it to do so in fewer steps. 
+
+Some ingridients are also underground, and the observation space is only 5 * 5 * 5, which means that the agent can only see 2 blocks below it. Therefore, sometimes the penalty will be larger because the agent will give up some rewards to reach a bigger reward. For example, when the users want to craft a stone pickaxe, the agent has to dig some dirts (each dirt = -1 penalties) in order to get the stone underground, which has a larger reward. 
+
+### Return with Higher Learning Rate 
+<div style="text-align:center"> <img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/high_learning.png'/> </div>
+
+The first time we trained, the model had a higher learning rate. A higher learning rate means that the model requires less training epochs and adapts to rapid changes. The model would stuck at a local minima, so when the steps increases, the model did not learning anything, so the return decreased drastically.
+
+### Final Returns
 <div style="text-align:center"> <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/final_return_graph.png'/> </div>
 
-By looking at the graph, we can see that even though the graph fluctuates and goes up and down, overall, the graph increases.
+After lowering the learning rate, the model had more training epochs and was continuously learning as the steps increased, so we can see from the graph that even though the graph fluctuated and went up and down, overall, the return increased. 
 
 | Steps | Returns |
-| ----- | :-----: |
-| 0     |   0.0   |
+| ----- | ------- |
+| 0     | 0.0     |
 | 2500  | 1333.0  |
 | 5000  | 1175.0  |
-| 7500  |  47.0   |
-| 10000 |  430.0  |
-| 12500 |  -46.0  |
+| 7500  | 47.0    |
+| 10000 | 430.0   |
+| 12500 | -46.0   |
 | 15000 | 1434.0  |
-| 17500 |  377.0  |
-| 20000 |  173.0  |
+| 17500 | 377.0   |
+| 20000 | 173.0   |
 
 
 
