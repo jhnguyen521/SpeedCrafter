@@ -3,6 +3,8 @@ layout: default
 title: Final Report
 ---
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mEVgjwE8kqI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="margin:auto; display:block;"></iframe>
+
 ## Summary
 The goal of our project is to create an agent that is able to gather resources and craft items in a normally-generated Minecraft world. The agent is spawned in a 29x29 chunk created with the default world generator, which has usual resources such as wood, dirt and stone. Information about its surroundings is given in the form of a 5x5x5 grid centered on its current location. Due to the limited sight range, the agent must explore the world around it to find resources, and reinforcement learning is used to allow it to do so in an efficient manner.
 
