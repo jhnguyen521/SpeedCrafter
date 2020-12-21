@@ -415,8 +415,8 @@ class SpeedCrafter(gym.Env):
 
 
 if __name__ == '__main__':
-
-    target = input("What do you want to craft: ")
+    target = input("What do you want to craft: ").split()
+    target = "_".join(target)
     print()
     recipes = recipe_getter.RecipeGetter("recipes.json")
     resources, craft_commands = recipes.get_ingredients(target)
