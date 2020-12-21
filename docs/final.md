@@ -27,6 +27,11 @@ p = [int(self.pos[0] - (int(self.obs_size/2)-obs_coord[0])),
 Once we have these coordinates, we can calculate the distance between the agent and the resource with simple matrix math.
 
 ## Evaluation
+The agent is evaluated in its ability in finding resources as well as how efficient it is at doing so. A small penalty of -1 is incurred every time a command is sent to the agent, as well as when it collects dirt (a common item that's not used in any recipes). Collecting a required resource has a reward of 100, and collecting all of the resources adds an additional reward of 1000. This is intended to reward the agent for completing recipes and encourage it to do so in fewer steps. 
+
+<!--
+TODO: distance-based reward
+This is known as reward shaping and it will be an extremely important part in training the agent. In order to incentivize the agent to maximize later rewards, we will gradually give larger rewards as the agent progresses.-->
 
 ## References
 RLLib?
