@@ -41,15 +41,15 @@ The mission finishes either when the agent hits 200 steps or the agent collects 
 
 The agent is evaluated in its ability in finding resources as well as how efficient it is at doing so. A small penalty of -1 is incurred every time a command is sent to the agent, as well as when it collects dirt (a common item that's not used in any recipes). Collecting a required resource has a reward of 100, and collecting all of the resources adds an additional reward of 1000. This is intended to reward the agent for completing recipes and encourage it to do so in fewer steps. 
 
-Some ingridients are also underground, and the observation space is only 5 * 5 * 5, which means that the agent can only see 2 blocks below it. Therefore, sometimes the penalty will be larger because the agent will give up some rewards to reach a bigger reward. For example, when the users want to craft a stone pickaxe, the agent has to dig some dirts (each dirt = -1 penalties) in order to get the stone underground, which has a larger reward. 
+Some ingredients are also underground, and the observation space is only 5 * 5 * 5, which means that the agent can only see 2 blocks below it. Therefore, sometimes the penalty will be larger because the agent will give up some rewards to reach a bigger reward. For example, when the user wants to craft a stone pickaxe, the agent has to dig some dirt (each dirt = -1 penalty) in order to get the stone underground, which has a larger reward. 
 
 #### Return with Higher Learning Rate 
-<div style="text-align:center"> <img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/high_learning.png'/> </div>
+<div style="text-align:center"> <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/high_learning.png'/> </div>
 
 The first time we trained, the model had a higher learning rate. A higher learning rate means that the model requires less training epochs and adapts to rapid changes. The model would stuck at a local minima, so when the steps increases, the model did not learning anything, so the return decreased drastically.
 
 #### Final Returns
-<div style="text-align:center"> <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/final_return_graph.png'/> </div>
+<div style="text-align:center"> <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/final_return_graph.png' width='750px' height='500px'/> </div>
 
 After lowering the learning rate, the model had more training epochs and was continuously learning as the steps increased, so we can see from the graph that even though the graph fluctuated and went up and down, overall, the return increased. 
 
@@ -64,6 +64,11 @@ After lowering the learning rate, the model had more training epochs and was con
 | 15000 | 1434.0  |
 | 17500 | 377.0   |
 | 20000 | 173.0   |
+
+#### Qualitative analysis
+Qualitative analysis was mainly done by observing the agent as it completes its mission. We initially trained the agent to collect wooden logs as they can be found on the surface, but not as easily as dirt. In the initial runs it moved and spun around randomly and often broke dirt blocks, not collecting any logs. However, once it came across logs and got rewards for breaking them, it started moving towards them more frequently and eventually moved straight towards the logs. We then trained it to collect both logs and stone to make a stone pickaxe. The agent was again moving and collecting dirt randomly in the initial runs, but eventually learnt to dig downwards to collect stone. In the final run shown in the video, the agent immediately moved to collect logs than dug downward to collect stone, finishing in relatively few steps.
+
+We are satisfied that the agent can efficiently fulfill at least basic recipes since it was able to collect both logs and stone, and because it collected logs from the surface *before* digging underground to get stone. Had it moved to collect the stone first, the agent would have taken much longer to dig back up to the surface and may not have been able to do so within the 200 step limit.
 
 ## References
 * [OpenAI documentation about Soft Actor-Critic](https://spinningup.openai.com/en/latest/algorithms/sac.html)
