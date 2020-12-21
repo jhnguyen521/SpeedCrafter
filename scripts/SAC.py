@@ -23,7 +23,7 @@ class SpeedCrafter(gym.Env):
 
         self.size = 15
         self.obs_size = 5
-        self.max_episode_steps = 100
+        self.max_episode_steps = 200
         self.log_frequency = 10
         self.action_dict = {
             0: 'jumpmove 1',  # jump forward
@@ -31,7 +31,8 @@ class SpeedCrafter(gym.Env):
             2: 'turn -1',  # Turn 90 degrees to the left
             3: 'look 1',  # look down 45 degrees
             4: 'look -1',  # look up 45 degrees
-            5: 'attack 1'
+            5: 'attack 1',
+            6: 'move 1'
         }
 
         # RLlib Parameters
@@ -55,6 +56,7 @@ class SpeedCrafter(gym.Env):
         self.pos = [-192.5, 68.5, 182.5]
         self.target_item = ''
         self.inventory = dict()
+        self.collected = None
 
         self.target_pos = None
         self.last_dist = float('inf')
@@ -88,6 +90,7 @@ class SpeedCrafter(gym.Env):
         self.pitch = 0
         self.pos = [-192.5, 68.5, 182.5]
         self.inventory = dict()
+        self.collected = None
         self.target_pos = None
         self.last_dist = float('inf')
         self.dist = float('inf')
@@ -118,19 +121,8 @@ class SpeedCrafter(gym.Env):
 
         # Get Action
         command = self.action_dict[action]
-        # allow_break_action = (self.obs[1, int(self.obs_size / 2) - 1, int(self.obs_size / 2)] == 1 and self.pitch == 45) \
-        #                      or (self.obs[2, int(self.obs_size / 2) - 1, int(self.obs_size / 2)] == 1 and self.pitch == 0) \
-        #                      or (self.obs[3, int(self.obs_size / 2) - 1, int(self.obs_size / 2)] == 1 and self.pitch == -45)
-        #
-        #
-        # if allow_break_action:
-        #     print(self.obs[0])
-        #     print(self.obs[1])
-        #     print(self.obs[2])
-        #     self.agent_host.sendCommand('attack 1')
-        #     time.sleep(.1)
-        #     self.episode_step += 1
-        if (command == 'look 1' and self.pitch == 45) or (command == 'look -1' and self.pitch == -45):
+
+        if (command == 'look 1' and self.pitch == 90) or (command == 'look -1' and self.pitch == -45):
             # Don't send action
             print('Not sending action')
             pass
@@ -143,7 +135,6 @@ class SpeedCrafter(gym.Env):
         done = False
         crafted_item = False
         enough_resources = self.enough_resources()
-        # TODO: FIX BUG WITH: Error starting mission: A mission is already running.
         if self.episode_step >= self.max_episode_steps or enough_resources:
             done = True
             if enough_resources:
@@ -163,6 +154,14 @@ class SpeedCrafter(gym.Env):
         reward = 0
         for r in world_state.rewards:
             reward += r.getValue()
+
+        if self.collected is not None:
+            if self.collected in self.resources:
+                reward += 100
+            else:
+                reward -= 1
+            print(reward)
+            self.collected = None
 
         # Reward according to distance
         if self.dist < self.last_dist:
@@ -212,7 +211,7 @@ class SpeedCrafter(gym.Env):
                    int(self.agent_start[0] - self.size - 10), int(
                        self.agent_start[0] + self.size + 10), int(self.agent_start[2] + self.size),
                    int(self.agent_start[2] + self.size + 10)) + \
-               '''
+                '''
                </DrawingDecorator>
                <ServerQuitWhenAnyAgentFinishes />
            </ServerHandlers>
@@ -236,10 +235,6 @@ class SpeedCrafter(gym.Env):
                             <max x="''' + str(int(self.obs_size / 2)) + '''" y="''' + str(int(self.obs_size / 2)) + '''" z="''' + str(int(self.obs_size / 2)) + '''"/>
                     </Grid>
                     </ObservationFromGrid>
-                    <RewardForCollectingItem>
-                        <Item type="log" reward="100"/>
-                        <Item type="dirt" reward="-1"/>
-                    </RewardForCollectingItem> 
                     <RewardForSendingCommand reward="-1"/>
                     <AgentQuitFromReachingCommandQuota total="'''+str(self.max_episode_steps)+'''" />
                 </AgentHandlers>            
@@ -291,13 +286,22 @@ class SpeedCrafter(gym.Env):
         return p, d
 
     def enough_resources(self):
+        enough = True
+        to_delete = []
         for r in self.resources:
             if r not in self.inventory:
-                return False
+                enough = False
             else:
                 if self.inventory[r] < self.resources[r]:
-                    return False
-        return True
+                    enough = False
+                else:
+                    to_delete.append(r)
+
+        for d in to_delete:
+            del self.resources[d]
+        print(self.resources)
+
+        return enough
 
     def get_observation(self, world_state):
         """
@@ -331,7 +335,6 @@ class SpeedCrafter(gym.Env):
                     self.dist = self.calc_dist(self.pos, self.target_pos)
 
                 grid = observations['floorAll']
-                # TODO: Update this
                 grid_binary = [1 if x in self.resources else 0 for x in grid]
 
                 obs = np.reshape(grid_binary, (self.obs_size,
@@ -375,9 +378,17 @@ class SpeedCrafter(gym.Env):
                     else:
                         temp[item] = size
                 if temp != self.inventory:
+                    print(temp, self.inventory)
+                    self.collected = (set(temp.items()) ^ set(self.inventory.items())).pop()[0]
+                    print("Picked up", self.collected)
+                    if self.collected in self.resources:
+                        self.target_pos = None
+                        self.dist = float('inf')
+                        self.last_dist = float('inf')
                     self.inventory = temp
 
-                break
+
+            break
 
         return obs
 
@@ -416,7 +427,12 @@ if __name__ == '__main__':
         'env_config': {'resources': resources, "craft_commands": craft_commands},
         'framework': 'torch',       # Use pyotrch instead of tensorflow
         'num_gpus': 1,              # use GPU
-        'num_workers': 0
+        'num_workers': 0,
+        'optimization': {
+            'actor_learning_rate': 3e-4,
+            'critic_learning_rate': 3e-4,
+            'entropy_learning_rate': 3e-4
+        }
     })
 
     while True:
