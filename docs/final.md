@@ -43,12 +43,12 @@ The agent is evaluated in its ability in finding resources as well as how effici
 
 Some ingridients are also underground, and the observation space is only 5 * 5 * 5, which means that the agent can only see 2 blocks below it. Therefore, sometimes the penalty will be larger because the agent will give up some rewards to reach a bigger reward. For example, when the users want to craft a stone pickaxe, the agent has to dig some dirts (each dirt = -1 penalties) in order to get the stone underground, which has a larger reward. 
 
-### Return with Higher Learning Rate 
+#### Return with Higher Learning Rate 
 <div style="text-align:center"> <img src='https://github.com/jhnguyen521/SpeedCrafter/blob/main/img/high_learning.png'/> </div>
 
 The first time we trained, the model had a higher learning rate. A higher learning rate means that the model requires less training epochs and adapts to rapid changes. The model would stuck at a local minima, so when the steps increases, the model did not learning anything, so the return decreased drastically.
 
-### Final Returns
+#### Final Returns
 <div style="text-align:center"> <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/final_return_graph.png'/> </div>
 
 After lowering the learning rate, the model had more training epochs and was continuously learning as the steps increased, so we can see from the graph that even though the graph fluctuated and went up and down, overall, the return increased. 
