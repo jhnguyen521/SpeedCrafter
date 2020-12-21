@@ -53,22 +53,22 @@ The first time we trained, the model had a higher learning rate. A higher learni
 
 After lowering the learning rate, the model had more training epochs and was continuously learning as the steps increased, so we can see from the graph that even though the graph fluctuated and went up and down, overall, the return increased. 
 
-| Steps | Returns |
-| ----- | ------- |
-| 0     | 0.0     |
-| 2500  | 1333.0  |
-| 5000  | 1175.0  |
-| 7500  | 47.0    |
-| 10000 | 430.0   |
-| 12500 | -46.0   |
-| 15000 | 1434.0  |
-| 17500 | 377.0   |
-| 20000 | 173.0   |
+| Steps | | Returns |
+| ----- |-| ------- |
+| 0     | | 0.0     |
+| 2500  | | 1333.0  |
+| 5000  | | 1175.0  |
+| 7500  | | 47.0    |
+| 10000 | | 430.0   |
+| 12500 | | -46.0   |
+| 15000 | | 1434.0  |
+| 17500 | | 377.0   |
+| 20000 | | 173.0   |
 
 #### Qualitative analysis
 Qualitative analysis was mainly done by observing the agent as it completes its mission. We initially trained the agent to collect wooden logs as they can be found on the surface, but not as easily as dirt. In the initial runs it moved and spun around randomly and often broke dirt blocks, not collecting any logs. However, once it came across logs and got rewards for breaking them, it started moving towards them more frequently and eventually moved straight towards the logs. We then trained it to collect both logs and stone to make a stone pickaxe. The agent was again moving and collecting dirt randomly in the initial runs, but eventually learnt to dig downwards to collect stone. In the final run shown in the video, the agent immediately moved to collect logs than dug downward to collect stone, finishing in relatively few steps.
 
-We are satisfied that the agent can efficiently fulfill at least basic recipes since it was able to collect both logs and stone, and because it collected logs from the surface *before* digging underground to get stone. Had it moved to collect the stone first, the agent would have taken much longer to dig back up to the surface and may not have been able to do so within the 200 step limit.
+We are satisfied that the agent can efficiently fulfill at least basic recipes since it was able to collect both logs and stone and learned to collect stone despite the penalty of digging through dirt to get to it, and because it collected logs from the surface *before* digging underground to get stone. Had it moved to collect the stone first, the agent would have taken much longer to dig back up to the surface and may not have been able to do so within the 200 step limit.
 
 ## References
 * [OpenAI documentation about Soft Actor-Critic](https://spinningup.openai.com/en/latest/algorithms/sac.html)
