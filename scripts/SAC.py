@@ -8,10 +8,13 @@ import time
 import json
 import matplotlib.pyplot as plt
 import numpy as np
+import recipe_getter
 
-import gym, ray
+import gym
+import ray
 from gym.spaces import Discrete, Box
 from ray.rllib.agents import sac
+
 
 class SpeedCrafter(gym.Env):
     def __init__(self, env_config):
@@ -33,7 +36,8 @@ class SpeedCrafter(gym.Env):
 
         # RLlib Parameters
         self.action_space = Discrete(len(self.action_dict))
-        self.observation_space = Box(0, 1, shape=(np.prod([self.obs_size, self.obs_size, self.obs_size]), ), dtype=np.int32)
+        self.observation_space = Box(0, 1, shape=(
+            np.prod([self.obs_size, self.obs_size, self.obs_size]), ), dtype=np.int32)
 
         # Malmo Parameters
         self.agent_host = MalmoPython.AgentHost()
@@ -45,7 +49,8 @@ class SpeedCrafter(gym.Env):
             exit(1)
 
         # SpeedCrafter Parameters
-        self.resources = {'log': 2} # # resource: # needed TODO: UPDATE BASED ON TARGET ITEM
+        self.resources = resources  # resource: # needed TODO: UPDATE BASED ON TARGET ITEM
+        self.craft_commands = craft_commands
         self.pitch = 0
         self.pos = [-192.5, 68.5, 182.5]
         self.target_item = ''
@@ -79,7 +84,7 @@ class SpeedCrafter(gym.Env):
         self.episode_return = 0
         self.episode_step = 0
 
-        self.resources = {'log': 2} # # resource: # needed TODO: UPDATE BASED ON TARGET ITEM
+        self.resources = resources  # resource: # needed TODO: UPDATE BASED ON TARGET ITEM
         self.pitch = 0
         self.pos = [-192.5, 68.5, 182.5]
         self.inventory = dict()
@@ -89,8 +94,8 @@ class SpeedCrafter(gym.Env):
 
         # Log
         if len(self.returns) > self.log_frequency and \
-            len(self.returns) % self.log_frequency == 0:
-                self.log_returns()
+                len(self.returns) % self.log_frequency == 0:
+            self.log_returns()
 
         # Get Observation
         self.obs = self.get_observation(world_state)
@@ -134,16 +139,17 @@ class SpeedCrafter(gym.Env):
             time.sleep(.1)
             self.episode_step += 1
 
-
-
         # Get Done
         done = False
         crafted_item = False
         enough_resources = self.enough_resources()
-        if self.episode_step >= self.max_episode_steps or enough_resources: # TODO: FIX BUG WITH: Error starting mission: A mission is already running.
+        # TODO: FIX BUG WITH: Error starting mission: A mission is already running.
+        if self.episode_step >= self.max_episode_steps or enough_resources:
             done = True
             if enough_resources:
                 crafted_item = True
+                for c in self.craft_commands:
+                    self.agent_host.sendCommand(c)
                 self.agent_host.sendCommand('chat /kill')
             time.sleep(0.5)
 
@@ -170,7 +176,6 @@ class SpeedCrafter(gym.Env):
 
         self.episode_return += reward
 
-
         return self.obs.flatten(), reward, done, dict()
 
     def get_mission_xml(self):
@@ -192,16 +197,20 @@ class SpeedCrafter(gym.Env):
                                 <DefaultWorldGenerator seed="996181341395652" forceReset="true"/>
                                 <DrawingDecorator>''' + \
                "<DrawCuboid x1='{}' x2='{}' y1='0' y2='100' z1='{}' z2='{}' type='air'/>".format(
-                   int(self.agent_start[0] - self.size), int(self.agent_start[0] - self.size - 10), int(self.agent_start[2] - self.size - 10),
+                   int(self.agent_start[0] - self.size), int(self.agent_start[0] -
+                                                             self.size - 10), int(self.agent_start[2] - self.size - 10),
                    int(self.agent_start[2] + self.size + 10)) + \
                "<DrawCuboid x1='{}' x2='{}' y1='0' y2='100' z1='{}' z2='{}' type='air'/>".format(
-                   int(self.agent_start[0] + self.size), int(self.agent_start[0] + self.size + 10), int(self.agent_start[2] - self.size - 10),
+                   int(self.agent_start[0] + self.size), int(self.agent_start[0] +
+                                                             self.size + 10), int(self.agent_start[2] - self.size - 10),
                    int(self.agent_start[2] + self.size + 10)) + \
                "<DrawCuboid x1='{}' x2='{}' y1='0' y2='100' z1='{}' z2='{}' type='air'/>".format(
-                   int(self.agent_start[0] - self.size - 10), int(self.agent_start[0] + self.size + 10), int(self.agent_start[2] - self.size),
+                   int(self.agent_start[0] - self.size - 10), int(
+                       self.agent_start[0] + self.size + 10), int(self.agent_start[2] - self.size),
                    int(self.agent_start[2] - self.size - 10)) + \
                "<DrawCuboid x1='{}' x2='{}' y1='0' y2='100' z1='{}' z2='{}' type='air'/>".format(
-                   int(self.agent_start[0] - self.size - 10), int(self.agent_start[0] + self.size + 10), int(self.agent_start[2] + self.size),
+                   int(self.agent_start[0] - self.size - 10), int(
+                       self.agent_start[0] + self.size + 10), int(self.agent_start[2] + self.size),
                    int(self.agent_start[2] + self.size + 10)) + \
                '''
                </DrawingDecorator>
@@ -247,11 +256,13 @@ class SpeedCrafter(gym.Env):
 
         max_retries = 3
         my_clients = MalmoPython.ClientPool()
-        my_clients.add(MalmoPython.ClientInfo('127.0.0.1', 10000)) # add Minecraft machines here as available
+        # add Minecraft machines here as available
+        my_clients.add(MalmoPython.ClientInfo('127.0.0.1', 10000))
 
         for retry in range(max_retries):
             try:
-                self.agent_host.startMission(my_mission, my_clients, my_mission_record, 0, 'SpeedCrafter')
+                self.agent_host.startMission(
+                    my_mission, my_clients, my_mission_record, 0, 'SpeedCrafter')
                 break
             except RuntimeError as e:
                 if retry == max_retries - 1:
@@ -277,7 +288,7 @@ class SpeedCrafter(gym.Env):
              int(self.pos[1] - (int(self.obs_size/2)-obs_coord[1])),
              int(self.pos[2] - (int(self.obs_size/2)-obs_coord[2]))]
         d = self.calc_dist(self.pos, p)
-        return p,d
+        return p, d
 
     def enough_resources(self):
         for r in self.resources:
@@ -287,7 +298,6 @@ class SpeedCrafter(gym.Env):
                 if self.inventory[r] < self.resources[r]:
                     return False
         return True
-
 
     def get_observation(self, world_state):
         """
@@ -314,15 +324,18 @@ class SpeedCrafter(gym.Env):
                 observations = json.loads(msg)
 
                 # Update position
-                self.pos = [observations['XPos'], observations['YPos'], observations['ZPos']]
+                self.pos = [observations['XPos'],
+                            observations['YPos'], observations['ZPos']]
                 if self.target_pos:
                     self.last_dist = self.dist
                     self.dist = self.calc_dist(self.pos, self.target_pos)
 
                 grid = observations['floorAll']
-                grid_binary = [1 if x in self.resources else 0 for x in grid] #TODO: Update this
+                # TODO: Update this
+                grid_binary = [1 if x in self.resources else 0 for x in grid]
 
-                obs = np.reshape(grid_binary, (self.obs_size, self.obs_size, self.obs_size))
+                obs = np.reshape(grid_binary, (self.obs_size,
+                                               self.obs_size, self.obs_size))
 
                 # Find closest resource
                 coords = np.argwhere(obs == 1)
@@ -331,13 +344,14 @@ class SpeedCrafter(gym.Env):
                     curr_coord = None
                     print("No target resource, checking if found a potential one.")
                     for c in coords:
-                        p,d = self.calc_pos_from_obs(c)
+                        p, d = self.calc_pos_from_obs(c)
                         if d < min_dist:
-                            curr_coord,min_dist = p,d
+                            curr_coord, min_dist = p, d
                     self.target_pos = curr_coord
                     self.dist = min_dist
                     print(f"Current Pos: {self.pos}")
-                    print(f"Found a resources at {self.target_pos} and distance of {min_dist}")
+                    print(
+                        f"Found a resources at {self.target_pos} and distance of {min_dist}")
 
                 # Update pitch of agent
                 self.pitch = observations['Pitch']
@@ -390,9 +404,16 @@ class SpeedCrafter(gym.Env):
 
 
 if __name__ == '__main__':
+
+    target = input("What do you want to craft: ")
+    print()
+    recipes = recipe_getter.RecipeGetter("recipes.json")
+    resources, craft_commands = recipes.get_ingredients(target)
+
     ray.init()
     trainer = sac.SACTrainer(env=SpeedCrafter, config={
-        'env_config': {},           # No environment parameters to configure
+        # No environment parameters to configure
+        'env_config': {'resources': resources, "craft_commands": craft_commands},
         'framework': 'torch',       # Use pyotrch instead of tensorflow
         'num_gpus': 1,              # use GPU
         'num_workers': 0
