@@ -7,9 +7,12 @@ title: Final Report
 <iframe width="560" height="315" src="https://www.youtube.com/embed/mEVgjwE8kqI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="margin:auto; display:block;"></iframe>
 
 ## Summary
-The goal of our project is to create an agent that is able to gather resources and craft items in a normally-generated Minecraft world. The agent is spawned in a 29x29 chunk created with the default world generator, which has usual resources such as wood, dirt and stone. Information about its surroundings is given in the form of a 5x5x5 grid centered on its current location. Due to the limited sight range, the agent must explore the world around it to find resources, and reinforcement learning is used to allow it to do so in an efficient manner.
+The goal of our project is to create an agent that is able to gather resources and craft items in a normally-generated Minecraft world. The agent is spawned in a 29x29 chunk created with the default world generator, containing resources such as wood, dirt and stone. Information about the agent's surroundings is given in the form of a 5x5x5 grid centered on its current location. The user inputs an item to craft through the command line, which is transformed into a list of resources that is given to the agent.
 
-<div style="text-align:center"> <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/arena.png' width='750px' height='500px'/> </div>
+Due to its limited sight range, the agent must explore the world around it and break blocks to collect resources. Reinforcement learning is used to train the agent to do so in an efficient manner (i.e. collecting the resources with fewer steps). We used the Soft-Actor Critic algorithm as it works well on continuous action spaces and requires less hyperparameter tuning than algorithms such as Q-learning.
+
+<div style="text-align:center"><img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/arena.png' width='750px' height='500px'/></div>
+<div style="text-align:center"><small>The agent's environment</small></div>
 
 ## Approaches
 
@@ -36,6 +39,7 @@ The mission finishes either when the agent hits 200 steps or the agent collects 
 ## References
 
 * [OpenAI documentation about Soft Actor-Critic](https://spinningup.openai.com/en/latest/algorithms/sac.html)
+* [paperswithcode.com](https://paperswithcode.com/method/soft-actor-critic)
 * [Malmo documentation](https://microsoft.github.io/malmo/0.30.0/Documentation/index.html)
 * [Ray RLlib documentation](https://docs.ray.io/en/latest/rllib.html)
 * Code from Assignment 2
