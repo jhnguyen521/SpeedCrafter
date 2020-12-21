@@ -40,8 +40,23 @@ The mission finishes either when the agent hits 200 steps or the agent collects 
 ## Evaluation
 <div style="text-align:center"> <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/final_return_graph.png'/> </div>
 
-## References
+By looking at the graph, we can see that even though the graph fluctuates and goes up and down, overall, the graph increases.
 
+| Steps | Returns |
+| ----- | :-----: |
+| 0     |   0.0   |
+| 2500  | 1333.0  |
+| 5000  | 1175.0  |
+| 7500  |  47.0   |
+| 10000 |  430.0  |
+| 12500 |  -46.0  |
+| 15000 | 1434.0  |
+| 17500 |  377.0  |
+| 20000 |  173.0  |
+
+
+
+## References
 * [OpenAI documentation about Soft Actor-Critic](https://spinningup.openai.com/en/latest/algorithms/sac.html)
 * [paperswithcode.com](https://paperswithcode.com/method/soft-actor-critic)
 * [Malmo documentation](https://microsoft.github.io/malmo/0.30.0/Documentation/index.html)
