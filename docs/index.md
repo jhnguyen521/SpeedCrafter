@@ -7,7 +7,7 @@ title: Home
 
 ## Overview
 
-The goal of our project is create an agent that can explore a Minecraft world and collect resources to craft certain items. The agent should be able to do this in an efficient manner while avoiding environmental hazards, such as lava or falling from heights. We will use the *soft-actor critic* algorithm to implement our agent.
+The goal of our project is create an agent that can explore a Minecraft world and efficiently collect resources to craft certain items. We will use the *soft-actor critic* algorithm to implement our agent.
 
 ## Project Links
 - [GitHub repository](https://github.com/jhnguyen521/SpeedCrafter)
