@@ -3,12 +3,13 @@ layout: default
 title: Final Report
 ---
 
+## Video
 <iframe width="560" height="315" src="https://www.youtube.com/embed/mEVgjwE8kqI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="margin:auto; display:block;"></iframe>
 
 ## Summary
 The goal of our project is to create an agent that is able to gather resources and craft items in a normally-generated Minecraft world. The agent is spawned in a 29x29 chunk created with the default world generator, which has usual resources such as wood, dirt and stone. Information about its surroundings is given in the form of a 5x5x5 grid centered on its current location. Due to the limited sight range, the agent must explore the world around it to find resources, and reinforcement learning is used to allow it to do so in an efficient manner.
 
-<img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/arena.png' title='Agent's world' />
+<div style="text-align:center"> <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/arena.png'/> </div>
 
 ## Approaches
 
@@ -30,11 +31,11 @@ Once we have these coordinates, we can calculate the distance between the agent 
 The mission finishes either when the agent hits 200 steps or the agent collects enough resources to craft the item.
 
 ## Evaluation
-The agent is evaluated in its ability in finding resources as well as how efficient it is at doing so. A small penalty of -1 is incurred every time a command is sent to the agent, as well as when it collects dirt (a common item that's not used in any recipes). Collecting a required resource has a reward of 100, and collecting all of the resources adds an additional reward of 1000. This is intended to reward the agent for completing recipes and encourage it to do so in fewer steps. 
-
-<!--
-TODO: distance-based reward
-This is known as reward shaping and it will be an extremely important part in training the agent. In order to incentivize the agent to maximize later rewards, we will gradually give larger rewards as the agent progresses.-->
+<div style="text-align:center"> <img src='https://raw.githubusercontent.com/jhnguyen521/SpeedCrafter/main/img/final_return_graph.png'/> </div>
 
 ## References
-RLLib?
+
+* [OpenAI documentation about Soft Actor-Critic](https://spinningup.openai.com/en/latest/algorithms/sac.html)
+* [Malmo documentation](https://microsoft.github.io/malmo/0.30.0/Documentation/index.html)
+* [Ray RLlib documentation](https://docs.ray.io/en/latest/rllib.html)
+* Code from Assignment 2
